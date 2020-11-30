@@ -21,8 +21,7 @@ const {isOpen, closeModal} = this.props;
         isOpen={isOpen}
         closeModal={closeModal}
       >
-
-        <Text> This is create Modal</Text>
+        <Text> Add new contact</Text>
         <TextInput
           placeholder="Name"
           style={styles.input}
@@ -38,6 +37,11 @@ const {isOpen, closeModal} = this.props;
           style={styles.input}
           onChangeText={name => this.setState({image})}
         />
+        <Button
+        style={styles.button}
+        title="Save contact"
+        onPress={() => {}}
+      />
       </Modal>
     )
 };
