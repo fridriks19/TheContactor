@@ -4,6 +4,7 @@ import { View, FlatList, Text, SafeAreaView, TouchableOpacity } from 'react-nati
 import styles from './styles';
 
 const ContactList = ({ }) => {
+  //have to read the filesystem
 };
 
 export default ContactList;

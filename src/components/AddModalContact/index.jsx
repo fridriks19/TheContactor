@@ -10,12 +10,22 @@ class AddModalContact extends Component {
     this.state = {
       name: '',
       phoneNumber: '',
-      image: '',
+      contactImage: '',
     }
   }
 
-render () {
-const {isOpen, closeModal} = this.props;
+saveContact=()=> {
+  const { name, phoneNumber, contactImage } = this.state;
+  let contactInfo = {
+    name: name,
+    phoneNumber: phoneNumber,
+    contactImage: contactImage,
+  }
+  return contactInfo;
+}
+
+render() {
+const {isOpen, closeModal, onPress} = this.props;
     return (
       <Modal
         isOpen={isOpen}
@@ -28,20 +38,20 @@ const {isOpen, closeModal} = this.props;
           onChangeText={name => this.setState({name})}
         />
         <TextInput
-          placeholder="PhoneNumber"
+          placeholder="Phone Number"
           style={styles.input}
-          onChangeText={name => this.setState({phoneNumber})}
+          onChangeText={phoneNumber => this.setState({phoneNumber})}
         />
         <TextInput
-          placeholder="Image"
+          placeholder="Contact Image"
           style={styles.input}
-          onChangeText={name => this.setState({image})}
+          onChangeText={contactImage => this.setState({contactImage})}
         />
         <Button
         style={styles.button}
         title="Save contact"
-        onPress={() => {}}
-      />
+        onPress={() => onPress(this.saveContact())}
+        />
       </Modal>
     )
 };

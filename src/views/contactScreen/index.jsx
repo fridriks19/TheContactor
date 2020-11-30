@@ -11,12 +11,18 @@ import styles from './styles';
 
 class contactScreen extends Component {
   state = {
-    contactScreens: [],
+    contactScreen: [],
     isAddModalOpen: false,
   }
 
   componentDidMount() {
     this.setState({contactScreen: 'SomeDataComesHere'})
+  }
+
+  addContact(contactInfo){
+    const { contactScreens} = this.state
+    //FileSystem.writeAsStringAsync(fileUrl, contents);
+    alert('Contact ' + contactInfo.name + ' created')
   }
 
   render() {
@@ -25,7 +31,7 @@ class contactScreen extends Component {
       <View>
         <SearchBar
         />
-        
+
         <Toolbar
           style={styles.screen}
           onAdd={() => this.setState({ isAddModalOpen: true })}
@@ -34,9 +40,7 @@ class contactScreen extends Component {
       <AddModalContact
         isOpen={isAddModalOpen}
         closeModal={() => this.setState({ isAddModalOpen: false })}
-        //onPress={(myArray) => this.addBoard(myArray)}
-        //takePhoto={() => this.takePhoto()}
-        //selecteFromCameraRoll={() => this.selecteFromCameraRoll()}
+        onPress={(contactInfo) => this.addContact(contactInfo)}
       />
 
       </View>
