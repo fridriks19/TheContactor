@@ -1,1 +1,2 @@
 # TheContactor
+**REMEMBER TO NPM INSTALL**
