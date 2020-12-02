@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 import uuid from 'react-native-uuid';
 
-const contactDirectory = `${FileSystem.documentDirectory}Contacts/`;
+const contactDirectory = `${FileSystem.documentDirectory}Contacts1/`;
 
 const onException = (cb, errorHandler) => {
   try {
@@ -21,13 +21,40 @@ const setupDirectory = async () => {
   }
 }
 
+export const searchBarUpdate = async (search) => {
+  await setupDirectory();
+  //if the user has unputed some letters
+  const filteredList = []
+  if (search.length > 0) {
+    const result = await onException(() => FileSystem.readDirectoryAsync(contactDirectory));
+    for (let i = 0; i< result.length; i++ ) {
+      const filteredData = await onException(() => FileSystem.readAsStringAsync(`${contactDirectory}${result[i]}`));
+      const parsedData = JSON.parse(filteredData)
+      if (parsedData.name.includes(search) === true){
+        filteredList.push(JSON.parse(filteredData))
+      }
+    }
+    //Sort by names
+    filteredList.sort((a, b) => {
+      return a.name > b.name
+    })
+    //console.log(filteredList);
+    return filteredList;
+  }else{
+    //console.log(await getAllContacts())
+    return await getAllContacts();
+  }
+
+};
+
+
 export const getAllContacts = async () => {
   await setupDirectory();
   const retList = [];
-  const result = await onException(() => FileSystem.readDirectoryAsync(contactDirectory));
-  for (let i = 0; i< result.length; i++ ){
-    const result1 = await onException(() => FileSystem.readAsStringAsync(`${contactDirectory}${result[i]}`));
-    retList.push(JSON.parse(result1))
+  const result  = await onException(() => FileSystem.readDirectoryAsync(contactDirectory));
+  for (let i = 0; i < result.length; i++ ) {
+    const filteredData = await onException(() => FileSystem.readAsStringAsync(`${contactDirectory}${result[i]}`));
+    retList.push(JSON.parse(filteredData))
   }
   //Sort by names
   retList.sort((a, b) => {
@@ -44,7 +71,6 @@ export const addContact = async (contactInfo) => {
   //Here we will save the contact to the file FileSystem
   //TODO Við ættum kannski að importa '../../services/Eitthvaðffoldewr' og gera virknina þar
   const contactPath = `${contactDirectory}${contactInfo.name}-${uuid.v1()}.json`;
-  console.log( contactPath)
   await setupDirectory();
   await onException(() => FileSystem.writeAsStringAsync( contactPath, JSON.stringify(contactInfo) ));
   //await FileSystem.writeAsStringAsync( contactPath, JSON.stringify(contactInfo) )

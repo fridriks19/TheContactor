@@ -3,16 +3,25 @@ import { searchBlue } from '../../styles/color';
 
 export default StyleSheet.create({
   searchbar: {
-    // backgroundColor: searchBlue,
+    backgroundColor: 'gray',
     // flexDirection: 'row',
     // alignItems: 'center',
     // justifyContent: 'center',
     // height: 50,
-    // borderColor: 'black',
-    // borderWidth: 3,
+
+
     // marginRight: 15,
     // marginLeft: 15,
     // marginBottom: 50,
     // marginTop: 10,
+  },
+  inputStyle: {
+    backgroundColor: searchBlue,
+    height: 60,
+    fontSize: 20,
+    padding: 20,
+    borderColor: 'black',
+    borderWidth: 1,
+    margin: 10,
   }
 });

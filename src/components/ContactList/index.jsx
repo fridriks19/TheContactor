@@ -35,10 +35,16 @@ const ContactList = ({ contactList }) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        //if the list of contacts is empty
+        ListEmptyComponent={() => (
+          <View style={styles.listEmpty}>
+            <Text >No Contacts Found</Text>
+          </View>
+        )}
         numColumns={1}
         data={contactList}
         renderItem={renderItem}
-        keyExtractor={(item) => item.name.toString()}
+        keyExtractor={(item, index) => index.toString()}
       />
     </SafeAreaView>
   );
