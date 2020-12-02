@@ -3,7 +3,15 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   screen: {
     flex: 1,
+    flexDirection: 'row-reverse',
     alignItems: 'flex-end',
+    //backgroundColor: 'black',
+    margin: 10,
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    left: 0,
+    
   },
   roundButton1: {
     justifyContent: 'center',

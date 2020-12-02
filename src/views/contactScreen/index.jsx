@@ -1,7 +1,12 @@
+import { Buffer } from 'buffer';
+global.Buffer = Buffer;
+//import * as FileSystem from 'expo-file-system';
+//const contactDirectory = `${FileSystem.documentDirectory}contacts/`;
 import React, { Component } from 'react';
-import * as FileSystem from 'expo-file-system';
+//import uuid from 'react-native-uuid';
 import { View, FlatList, Text } from 'react-native';
 import Toolbar from '../../components/Toolbar';
+import { addContact, getAllContacts } from '../../services/contactService';
 import SearchBar from '../../components/SearchBar';
 import ContactList from '../../components/ContactList';
 import PropTypes from 'prop-types';
@@ -11,29 +16,35 @@ import styles from './styles';
 
 class contactScreen extends Component {
   state = {
-    contactScreen: [],
+    contactList: [],
     isAddModalOpen: false,
   }
 
-  componentDidMount() {
-    this.setState({contactScreen: 'SomeDataComesHere'})
+  async componentDidMount() {
+    this.setState({ contactList: await getAllContacts()})
   }
 
-  addContact(contactInfo){
-    const { contactScreens} = this.state
-    //FileSystem.writeAsStringAsync(fileUrl, contents);
+  async addContact(contactInfo) {
+    const { contactList } = this.state
+    //Here we will save the contact to the file FileSystem
+    //TODO Við ættum kannski að importa '../../services/Eitthvaðffoldewr' og gera virknina þar
+    //const contactPath = `${contactDirectory}${contactInfo.name}-${uuid.v1()}.json`;
+    await addContact(contactInfo);
     alert('Contact ' + contactInfo.name + ' created')
+    //Reset the view/ updating the view with the new contaact
+    this.setState({ contactList: await getAllContacts()})
   }
 
   render() {
-    const { isAddModalOpen } = this.state;
+    const { isAddModalOpen, contactList } = this.state;
     return (
-      <View>
-        <SearchBar
+      <View style={{flex: 1}}>
+        <SearchBar //TODO Það þarf að gera virkni fyrir searchbarið í components
         />
-
+        <ContactList
+          contactList={contactList}
+        />
         <Toolbar
-          style={styles.screen}
           onAdd={() => this.setState({ isAddModalOpen: true })}
         //hasSelectedItem={selectedBoards.length > 0}
       />
@@ -42,11 +53,9 @@ class contactScreen extends Component {
         closeModal={() => this.setState({ isAddModalOpen: false })}
         onPress={(contactInfo) => this.addContact(contactInfo)}
       />
-
       </View>
     )
   };
-
 };
 
 export default contactScreen;
