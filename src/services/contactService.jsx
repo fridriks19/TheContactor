@@ -1,4 +1,5 @@
 import * as FileSystem from 'expo-file-system';
+import Latinize from 'latinize';
 import uuid from 'react-native-uuid';
 
 const contactDirectory = `${FileSystem.documentDirectory}Contacts1/`;
@@ -63,14 +64,16 @@ export const getAllContacts = async () => {
   return retList;
 }
 
-export const removeContact = async name => {
-    return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${name}`, { idempotent: true }));
+export const removeContact = async contact => {
+  console.log(`${contactDirectory}/${contact.name}`)
+    //return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${contact.name}`, { idempotent: true }));
 }
 
 export const addContact = async (contactInfo) => {
   //Here we will save the contact to the file FileSystem
+  const name = Latinize(contactInfo.name).replace(/\s/g, '')
   //TODO Við ættum kannski að importa '../../services/Eitthvaðffoldewr' og gera virknina þar
-  const contactPath = `${contactDirectory}${contactInfo.name}-${uuid.v1()}.json`;
+  const contactPath = `${contactDirectory}${name}-${uuid.v1()}.json`;
   await setupDirectory();
   await onException(() => FileSystem.writeAsStringAsync( contactPath, JSON.stringify(contactInfo) ));
   //await FileSystem.writeAsStringAsync( contactPath, JSON.stringify(contactInfo) )

@@ -1,12 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AntDesign } from '@expo/vector-icons';
+import { withNavigation } from 'react-navigation';
 import { View, FlatList, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import ContactPhoto from '../ContactPhoto';
 
-const Item = ({ item }) => (
+const Item = ({ item, isSelected, onLongPress, onPress }) => (
   <TouchableOpacity
-    style={styles.item}>
+    style={styles.item, isSelected ? styles.itemNot : styles.item }
+    onPress={onPress}
+    onLongPress={() => onLongPress(item)}>
+    {
+      isSelected
+      ?
+        <AntDesign name="checkcircle" style={styles.checkmark} />
+      :
+      <></>
+    }
     <View style={styles.itemView}>
       <ContactPhoto
         contactImage={item.contactImage}
@@ -17,7 +28,7 @@ const Item = ({ item }) => (
   </TouchableOpacity>
 );
 
-const ContactList = ({ contactList }) => {
+const ContactList = ({ contactList,navigation: { navigate }, onLongPress, selectedContacts }) => {
   //console.log("AAA", contactList)
   //have to read the filesystem
 
@@ -29,6 +40,9 @@ const ContactList = ({ contactList }) => {
   return (
     <Item
       item={item}
+      onPress={() => navigate('contactDetailScreen', { contactInfo: item })}
+      onLongPress={onLongPress}
+      isSelected={selectedContacts.indexOf(item) !== -1}
     />
   );
   }
@@ -44,10 +58,11 @@ const ContactList = ({ contactList }) => {
         numColumns={1}
         data={contactList}
         renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.phoneNumber.toString()}
+        extraData={ selectedContacts}
       />
     </SafeAreaView>
   );
 };
 
-export default ContactList;
+export default withNavigation(ContactList);

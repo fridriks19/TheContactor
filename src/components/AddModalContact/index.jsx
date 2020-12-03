@@ -35,7 +35,7 @@ class AddModalContact extends Component {
 saveContact=()=> {
   const { name, phoneNumber, contactImage } = this.state;
   let contactInfo = {
-    name: name.replace(/\s/g, '_'),
+    name: name,
     phoneNumber: phoneNumber,
     contactImage: contactImage,
   }
@@ -52,7 +52,7 @@ const {isOpen, closeModal, onPress} = this.props;
       >
         <Text> Add new contact</Text>
         <TextInput
-          placeholder="Name (NO ICE LETTERS!)"
+          placeholder="Name"
           style={styles.input}
           onChangeText={name => this.setState({name})}
         />

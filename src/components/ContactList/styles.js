@@ -1,5 +1,5 @@
-import { StyleSheet, StatusBar,Dimensions } from 'react-native';
-import { searchBlue } from '../../styles/color';
+import { StyleSheet, StatusBar, Dimensions } from 'react-native';
+import { searchBlue, contactBlue } from '../../styles/color';
 
 const { width: winWidth } = Dimensions.get('window');
 export default StyleSheet.create({
@@ -15,9 +15,19 @@ export default StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 20,
     borderWidth: 3,
-    backgroundColor: searchBlue,
+    backgroundColor: contactBlue,
     width: winWidth - 40,
     borderRadius: 15,
+  },
+  itemNot: {
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 20,
+    borderWidth: 3,
+    backgroundColor: contactBlue,
+    width: winWidth - 40,
+    borderRadius: 15,
+    opacity: 0.4
   },
   name: {
     paddingTop: 18,
@@ -33,5 +43,11 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  checkmark: {
+  position: 'absolute',
+  top: 1,
+  right: 2,
+  fontSize: 27,
+}
 });

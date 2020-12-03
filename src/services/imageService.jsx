@@ -1,13 +1,14 @@
 import * as ImagePicker from 'expo-image-picker';
-import * as Permission from 'expo-permissions';
+import * as Permissions from 'expo-permissions';
 
-const getPermissions = async permissionTypes => {
+const getPermission = async permissionTypes => {
   await Promise.all(permissionTypes.map(async (type) =>
-  Permission.askAsync(type)));
+  Permissions.askAsync(type)));
 };
 
+
 export const selectFromCameraRoll = async () => {
-  await getPermissions([ Permission.CAMERA_ROLL ]);
+  await getPermission([ Permissions.CAMERA_ROLL ]);
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     quality: 0.8,
@@ -20,7 +21,7 @@ export const selectFromCameraRoll = async () => {
 };
 
 export const takePhoto = async () => {
-  await getPermissions([ Permission.CAMERA, Permission.CAMERA_ROLL ]);
+  await getPermission([ Permissions.CAMERA, Permissions.CAMERA_ROLL ]);
   const result = await ImagePicker.launchCameraAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     quality: 0.8,

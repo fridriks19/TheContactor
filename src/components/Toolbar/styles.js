@@ -1,8 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width: winWidth } = Dimensions.get('window');
 
 export default StyleSheet.create({
   screen: {
     flex: 1,
+    justifyContent: 'space-between',
     flexDirection: 'row-reverse',
     alignItems: 'flex-end',
     //backgroundColor: 'black',
@@ -11,9 +14,8 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    
   },
-  roundButton1: {
+  addButton: {
     justifyContent: 'center',
     alignItems: 'center',
     width: 80,
@@ -23,6 +25,27 @@ export default StyleSheet.create({
     backgroundColor: 'blue',
   },
   buttonText: {
-    fontSize: 50,
+    fontSize: 20,
+  },
+  deleteButton:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
+    padding: 10,
+    borderRadius: 80,
+    //marginRight: 100,
+    backgroundColor: 'red',
+  },
+  deleteButtonEmpty: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
+    padding: 10,
+    borderRadius: 80,
+    //marginRight: 100,
+    backgroundColor: 'red',
+    opacity: 0.5
   }
 });
