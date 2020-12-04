@@ -1,6 +1,7 @@
 //import { Buffer } from 'buffer';
 //global.Buffer = Buffer;
 import React, { Component } from 'react';
+import * as Contacts from 'expo-contacts';
 import Latinize from 'latinize';
 import { View, FlatList, Text, SafeAreaView, TextInput } from 'react-native';
 import Toolbar from '../../components/Toolbar';
@@ -62,18 +63,29 @@ class contactScreen extends Component {
         selectedContacts: [ ...selectedContacts, contact]
       });
     }
-    console.log(selectedContacts)
   }
 
   async deleteSelectedContacts(){
     const { selectedContacts, contactList } = this.state;
     await Promise.all(selectedContacts.map(contact => removeContact(contact)));
-    console.log(selectedContacts)
     this.setState({
       selectedContacts: [],
       contactList: contactList.filter(contact => selectedContacts.indexOf(contact) === -1),
     });
   }
+
+  async getContactsAsync() {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [Contacts.Fields.Emails],
+        });
+        if (data.length > 0) {
+          const contact = data[0];
+          console.log(contact);
+        }
+      }
+    }
 
   render() {
     const { isAddModalOpen, contactList, selectedContacts } = this.state;

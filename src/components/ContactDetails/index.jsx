@@ -8,35 +8,24 @@ import styles from './styles';
 //import ContactPhoto from '../ContactPhoto';
 
 
-const ContactDetails = ({ contactDetail, onEdit }) => (
+const ContactDetails = ({ contactDetail, onEdit, onCall }) => (
 
   <View style={styles.container}>
+    <View style={styles.edit}>
+      <Button
+        title="Edit"
+        //onPress={() => onPress("contactImage")}
+        onPress={onEdit}
+      />
+    </View>
     <Image
       style={styles.profilePic}
       source={{ uri: contactDetail.contactImage }} />
-    <Button
-      title="Edit"
-      style={styles.edit}
-      //onPress={() => onPress("contactImage")}
-      //onPress={onEdit}
-    />
     <Text style={ styles.name }>{contactDetail.name}</Text>
-    <Button
-      title="Edit"
-      style={styles.edit}
-      //onPress={onEdit}
-      //onPress={() => onPress("name")}
-    />
     <Text style={ styles.number }>Phone number: {contactDetail.phoneNumber}</Text>
-    <Button
-      title="Edit"
-      style={styles.edit}
-      //onPress={() => onPress("phoneNumber")}
-      onPress={onEdit}
-    />
     <TouchableHighlight
       style={styles.callContainer}
-      onPress={onEdit}>
+      onPress={onCall}>
       <View>
         <AntDesign name="phone" style={styles.icon} />
         <Text style={styles.callText}>Call</Text>

@@ -56,5 +56,12 @@ export default StyleSheet.create({
     bottom: 5,
     fontSize: 26,
     color: interactiveBlue,
+  },
+  edit: {
+    //alignItems: 'flex-end',
+    //backgroundColor: '#282829',
+    //borderRadius: 10,
+    //borderRadius: 10,
+    //borderWidth: 2,
   }
 });

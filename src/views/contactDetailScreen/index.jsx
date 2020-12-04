@@ -3,7 +3,6 @@ import { View, FlatList, Text } from 'react-native';
 import ContactDetails from '../../components/ContactDetails';
 import PropTypes from 'prop-types';
 import EditModalContact from '../../components/EditModalContact';
-import AddModalContact from '../../components/AddModalContact';
 import {backgroundColor} from '../../styles/color';
 
 class contactDetailScreen extends Component {
@@ -18,6 +17,7 @@ class contactDetailScreen extends Component {
   editContact(contactInfo){
     const { contactDetail } = this.state
     console.log(contactInfo)
+    this.setState({contactDetail: contactInfo})
   }
   render() {
 
@@ -29,11 +29,12 @@ class contactDetailScreen extends Component {
         closeModal={() => this.setState({ isEditModalOpen: false })}
         contactDetail={contactDetail}
         //onPress={(changeParam) => this.editContact(changeParam)}
-        onEdit={ () => this.setState({ isAddModalOpen: true }) }
+        onEdit={ () => this.setState({ isEditModalOpen: true }) }
       />
-      <AddModalContact
+      <EditModalContact
+        contactDetail={contactDetail}
         isOpen={isEditModalOpen}
-        closeModal={() => this.setState({ isAddModalOpen: false })}
+        closeModal={() => this.setState({ isEditModalOpen: false })}
         onPress={(contactInfo) => this.editContact(contactInfo)}
       />
     </View>
